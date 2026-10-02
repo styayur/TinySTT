@@ -1,0 +1,57 @@
+[package]
+name = "tinystt"
+version = "0.1.0"
+edition = "2021"
+description = "Tiny, offline speech-to-text for Windows (SenseVoice + sherpa-onnx)"
+license = "AGPL-3.0-only"
+repository = "https://github.com/styayur/TinySTT"
+readme = "README.md"
+rust-version = "1.85"
+
+[[bin]]
+name = "TinySTT"
+path = "src/main.rs"
+
+[features]
+default = ["native"]
+# The native feature enables the GUI, microphone capture, Windows integration,
+# and sherpa-onnx. Disable it for dependency-light core unit tests.
+native = [
+    "dep:cpal",
+    "dep:eframe",
+    "dep:sherpa-onnx",
+    "dep:tray-icon",
+    "dep:windows-sys",
+]
+
+[dependencies]
+hound = "3.5"
+serde = { version = "1", features = ["derive"] }
+thiserror = "2"
+toml = "1.1"
+
+cpal = { version = "0.16", optional = true }
+eframe = { version = "0.31", optional = true }
+sherpa-onnx = { version = "1.13.8", optional = true }
+tray-icon = { version = "0.26", default-features = false, optional = true }
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", optional = true, features = [
+    "Win32_Foundation",
+    "Win32_Graphics_Gdi",
+    "Win32_Storage_FileSystem",
+    "Win32_System_Console",
+    "Win32_System_IO",
+    "Win32_System_DataExchange",
+    "Win32_System_LibraryLoader",
+    "Win32_System_Memory",
+    "Win32_System_Threading",
+    "Win32_UI_Input_KeyboardAndMouse",
+    "Win32_UI_WindowsAndMessaging",
+] }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = true

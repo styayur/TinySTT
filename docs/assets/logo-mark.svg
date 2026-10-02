@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="TinySTT logo">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0e7490"/>
+      <stop offset="1" stop-color="#164e63"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="30" fill="url(#bg)"/>
+  <rect x="30" y="48" width="10" height="32" rx="5" fill="#f8fafc"/>
+  <rect x="46" y="36" width="10" height="56" rx="5" fill="#f8fafc"/>
+  <rect x="62" y="24" width="10" height="80" rx="5" fill="#f8fafc"/>
+  <rect x="78" y="40" width="10" height="48" rx="5" fill="#f8fafc"/>
+  <rect x="94" y="52" width="10" height="24" rx="5" fill="#f8fafc"/>
+</svg>

@@ -1,0 +1,20 @@
+# TinySTT settings
+# Copy this file to config/config.toml next to TinySTT.exe.
+
+# Optional absolute path, or a path relative to TinySTT.exe.
+model_dir = ""
+
+# CPU inference threads: 1, 2, or 4.
+num_threads = 2
+
+# One non-modifier key plus modifiers. Examples: Ctrl+Alt+D, Ctrl+Shift+D.
+hotkey = "Ctrl+Alt+D"
+
+# Disabled by default. When enabled, TinySTT sends Ctrl+V after copying text.
+auto_paste = false
+
+# Empty selects the Windows default input device.
+microphone = ""
+
+# auto, zh, en, yue, ja, or ko.
+language = "auto"

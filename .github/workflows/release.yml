@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version without the v prefix, for example 0.1.0"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  windows-portable:
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: Formatting
+        run: cargo fmt --all -- --check
+      - name: Lint
+        run: cargo clippy --all-targets --all-features -- -D warnings
+      - name: Tests
+        run: cargo test --all --all-features
+      - name: Package portable ZIP
+        shell: pwsh
+        run: |
+          $version = if ("${{ github.event_name }}" -eq "push") {
+            "${{ github.ref_name }}".TrimStart("v")
+          } else {
+            "${{ inputs.version }}"
+          }
+          ./scripts/package-portable.ps1 -Version $version
+      - name: Publish GitHub Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $version = if ("${{ github.event_name }}" -eq "push") { "${{ github.ref_name }}".TrimStart("v") } else { "${{ inputs.version }}" }
+          $tag = if ("${{ github.event_name }}" -eq "push") { "${{ github.ref_name }}" } else { "v$version" }
+          gh release create $tag `
+            "dist/TinySTT-windows-x64-v$version.zip" `
+            "dist/SHA256SUMS.txt" `
+            --title "TinySTT $tag" `
+            --generate-notes

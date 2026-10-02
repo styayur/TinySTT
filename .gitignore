@@ -1,0 +1,13 @@
+/target
+/models
+/config
+/logs
+/debug
+/dist
+*.log
+*.wav
+*.zip
+.DS_Store
+Thumbs.db
+cli-*.out
+cli-*.err
