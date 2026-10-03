@@ -1,0 +1,19 @@
+[commands.format]
+program = "cargo"
+args = ["fmt", "--all", "--", "--check"]
+timeout_secs = 120
+
+[commands.lint]
+program = "cargo"
+args = ["clippy", "--all-targets", "--all-features", "--", "-D", "warnings"]
+timeout_secs = 600
+
+[commands.test]
+program = "cargo"
+args = ["test", "--all", "--all-features"]
+timeout_secs = 900
+
+[commands.build]
+program = "cargo"
+args = ["build", "--release"]
+timeout_secs = 1200
