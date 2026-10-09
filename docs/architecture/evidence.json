@@ -1,0 +1,55 @@
+{
+  "source_commit": "ab3e795c02df5fe06bbca54d8844507b34097061",
+  "reviewed_on": "2026-10-09",
+  "diagram_source": "README.md",
+  "sources": [
+    {
+      "path": "src/app.rs",
+      "anchors": [
+        "worker.recognize",
+        "clipboard::write_text",
+        "paste::send_ctrl_v"
+      ]
+    },
+    {
+      "path": "src/hotkey.rs",
+      "anchors": [
+        "Pressed",
+        "Released"
+      ]
+    },
+    {
+      "path": "src/audio/capture.rs",
+      "anchors": [
+        "downmix_interleaved",
+        "StreamingResampler"
+      ]
+    },
+    {
+      "path": "src/audio/buffer.rs",
+      "anchors": [
+        "MAX_RECORDING"
+      ]
+    },
+    {
+      "path": "src/asr/worker.rs",
+      "anchors": [
+        "mpsc::channel",
+        "clean_transcript"
+      ]
+    },
+    {
+      "path": "src/asr/sensevoice.rs",
+      "anchors": [
+        "OfflineRecognizer",
+        "self.recognizer.decode"
+      ]
+    },
+    {
+      "path": "src/state.rs",
+      "anchors": [
+        "Recognizing"
+      ]
+    }
+  ]
+}

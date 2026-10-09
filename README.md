@@ -1,10 +1,6 @@
-<div align="center">
-
-<img src="docs/assets/logo-mark.svg" width="92" alt="TinySTT logo" />
-
 # TinySTT
 
-**Tiny. Offline. Just speak.**
+Offline push-to-talk speech recognition for Windows.
 
 **Status:** 🟡 Early preview
 
@@ -12,13 +8,7 @@
 
 [![Rust CI](https://github.com/styayur/TinySTT/actions/workflows/ci.yml/badge.svg)](https://github.com/styayur/TinySTT/actions/workflows/ci.yml)
 [![license: AGPL-3.0-only](https://img.shields.io/badge/license-AGPL--3.0--only-blue)](LICENSE)
-[![Rust](https://img.shields.io/badge/Rust-black?logo=rust&logoColor=white)]()
-[![Windows](https://img.shields.io/badge/Windows-0078D6?logo=windows&logoColor=white)]()
-[![offline](https://img.shields.io/badge/offline-first-0f172a)]()
 
-</div>
-
----
 
 What is TinySTT?
 ----------------
@@ -35,6 +25,22 @@ Docker, FFmpeg, HTTP server, WebSocket, database, or telemetry.
 **Hold `Ctrl+Alt+D` → Speak → Release → Text.**
 
 TinySTT does not send your audio or transcript to any server.
+
+### Actual WAV recognition
+
+After downloading the documented SenseVoice model and extracting the portable release:
+
+```powershell
+.\TinySTT.exe --file .\models\sensevoice\test_wavs\en.wav --model-dir .\models\sensevoice --language en
+```
+
+Actual stdout from the local v0.1.0 portable executable on 2026-10-09:
+
+```text
+The tribal chieftain called for the boy and presented him with 50 pieces of code.
+```
+
+This is an unedited recognition result from the model's bundled sample, not an accuracy benchmark; the final word is retained exactly as recognized. It demonstrates file inference, not microphone capture or a GUI screenshot. [Run provenance and capture limitation](docs/architecture/DEMONSTRATION.md).
 
 Features
 --------
@@ -247,6 +253,31 @@ dist/SHA256SUMS.txt
 ```
 
 Model weights are intentionally not included.
+
+## Architecture
+
+<!-- architecture:overview:start -->
+```mermaid
+flowchart TB
+  Hotkey[Windows keyboard hook thread] -->|Pressed / Released| UI[egui UI / state machine]
+  Mic[Microphone] --> Capture[CPAL callback: mono / 16 kHz]
+  UI -->|start / stop / cancel| Capture
+  Capture --> Buffer[Bounded recording buffer: 60 seconds]
+  Buffer -->|Stop; mpsc request via UI| Worker[Single ASR worker thread]
+  Model[(Local SenseVoice INT8 model / tokens)] --> Worker
+  Worker --> ASR[sherpa-onnx native recognizer]
+  ASR --> Clean[Deterministic transcript cleanup]
+  Clean -->|completion / error event| UI
+  UI --> Clipboard[Windows clipboard; optional paste]
+  UI -.-> WAV[(Optional debug WAV file)]
+```
+<!-- architecture:overview:end -->
+
+TinySTT is a native desktop push-to-talk application with an additional WAV CLI, not a CLI-only SDK. Capture is controlled by key press/release or UI buttons. Preprocessing downmixes and resamples; there is no separate VAD module. The ASR worker owns one recognizer and processes requests serially. The UI rejects recording while busy and forwards model/recognition errors.
+
+Recording cancellation discards buffered audio before inference; in-flight ASR cancellation is not implemented. Audio/transcripts remain local at runtime. Clipboard delivery crosses into the OS and optional auto-paste affects the focused application; debug WAV export is explicit. See the existing architecture document for buffer contention, state transitions and failure details.
+
+[Source evidence and diagram verification](docs/architecture/README.md).
 
 Project layout
 --------------
