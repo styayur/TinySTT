@@ -65,7 +65,20 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
-      - name: Audit Rust dependencies
+      - name: Prepare official advisory database
         run: |
+          git clone --depth 1 https://github.com/RustSec/advisory-db.git "$RUNNER_TEMP/advisory-db"
+          python3 scripts/normalize_rustsec_db.py --db "$RUNNER_TEMP/advisory-db" --output security/normalization.json
+      - name: Audit Rust dependencies
+        shell: bash
+        run: |
+          set -o pipefail
           cargo install cargo-audit --locked --version 0.21.2
-          cargo audit
+          cargo audit --db "$RUNNER_TEMP/advisory-db" 2>&1 | tee security/cargo-audit.txt
+      - name: Upload security evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tiny-stt-security-evidence
+          path: security/
+          if-no-files-found: warn
