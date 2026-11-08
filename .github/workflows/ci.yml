@@ -74,7 +74,7 @@ jobs:
         run: |
           set -o pipefail
           cargo install cargo-audit --locked --version 0.21.2
-          cargo audit --db "$RUNNER_TEMP/advisory-db" 2>&1 | tee security/cargo-audit.txt
+          cargo audit --no-fetch --db "$RUNNER_TEMP/advisory-db" 2>&1 | tee security/cargo-audit.txt
       - name: Upload security evidence
         if: always()
         uses: actions/upload-artifact@v4
