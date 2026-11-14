@@ -1,6 +1,5 @@
 # Native maintenance: 09:00 Asia/Singapore on the 1st and 15th.
 # Version updates exclude major releases; security updates retain their independent queue.
-# Frozen experiment: ordinary version PRs are paused; security updates stay enabled.
 version: 2
 updates:
   - package-ecosystem: cargo
@@ -9,7 +8,7 @@ updates:
       interval: cron
       cronjob: 0 9 1,15 * *
       timezone: Asia/Singapore
-    open-pull-requests-limit: 0
+    open-pull-requests-limit: 3
     allow:
       - dependency-name: "*"
         update-types:
@@ -29,7 +28,7 @@ updates:
       interval: cron
       cronjob: 0 9 1,15 * *
       timezone: Asia/Singapore
-    open-pull-requests-limit: 0
+    open-pull-requests-limit: 3
     allow:
       - dependency-name: "*"
         update-types:
