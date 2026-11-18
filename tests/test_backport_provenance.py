@@ -21,7 +21,7 @@ class BackportProvenance(unittest.TestCase):
             if file in ["Cargo.toml", "build.rs", "README.md"]:
                 continue
             self.assertEqual(
-                hashlib.sha256((folder / file).read_bytes()).hexdigest(),
+                hashlib.sha256((folder / file).read_bytes().replace(b"\r\n", b"\n")).hexdigest(),
                 digest,
                 file,
             )
