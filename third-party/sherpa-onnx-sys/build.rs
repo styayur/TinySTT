@@ -165,7 +165,7 @@ fn download_prebuilt_libs(
     let lib_dir_name = if is_ios_sim { "lib-sim" } else { "lib" };
     let lib_dir = extracted_dir.join(lib_dir_name);
 
-    if lib_dir.is_dir() {
+    if native_library_present(&lib_dir, link_mode, target_os) {
         return Ok((lib_dir, archive_stem.to_string()));
     }
 
@@ -424,6 +424,17 @@ fn archive_name(
     };
 
     Ok(name)
+}
+
+fn native_library_present(lib_dir: &Path, link_mode: LinkMode, target_os: &str) -> bool {
+    let file_name = match (link_mode, target_os) {
+        (LinkMode::Static, "windows") => "sherpa-onnx-c-api.lib",
+        (LinkMode::Shared, "windows") => "sherpa-onnx-c-api.dll",
+        (LinkMode::Static, _) => "libsherpa-onnx-c-api.a",
+        (LinkMode::Shared, "macos" | "ios") => "libsherpa-onnx-c-api.dylib",
+        (LinkMode::Shared, _) => "libsherpa-onnx-c-api.so",
+    };
+    lib_dir.join(file_name).is_file()
 }
 
 fn emit_shared_link_directives(target_os: &str) {
