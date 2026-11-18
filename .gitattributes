@@ -5,3 +5,4 @@
 *.yml text eol=lf
 *.yaml text eol=lf
 *.ps1 text eol=crlf
+third-party/sherpa-onnx-sys/** text eol=lf

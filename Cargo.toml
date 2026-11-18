@@ -12,6 +12,10 @@ rust-version = "1.85"
 name = "TinySTT"
 path = "src/main.rs"
 
+[patch.crates-io]
+# Build-dependency-only security backport; native 1.13.8 ABI is unchanged.
+sherpa-onnx-sys = { path = "third-party/sherpa-onnx-sys" }
+
 [features]
 default = ["native"]
 # The native feature enables the GUI, microphone capture, Windows integration,
