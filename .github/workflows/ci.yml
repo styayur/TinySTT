@@ -28,6 +28,8 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - name: Formatting
         run: cargo fmt --all -- --check
+      - name: Backport provenance
+        run: python -m unittest tests.test_backport_provenance
       - name: Lint
         run: cargo clippy --all-targets --all-features -- -D warnings
       - name: Tests

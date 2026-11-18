@@ -1,0 +1,38 @@
+{
+  "upstream_version": "1.13.8",
+  "local_version": "1.13.8+tinystt.zip9.1",
+  "archive_url": "https://static.crates.io/crates/sherpa-onnx-sys/sherpa-onnx-sys-1.13.8.crate",
+  "archive_sha256": "14bbeabb73f73f1c1f4a278af0ee9ae90a19f9727482027047fb9422fa14f8fe",
+  "original_files_sha256": {
+    "Cargo.toml": "42059642d816f8463c0e9d4a356196715540f198368054fe45a4c84343fe7aeb",
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "README.md": "8fa218670f33f12a2b18b1415a4c70497918587218dde163934249447f3270e8",
+    "build.rs": "fc860a0f6bafb9aabc9f8a3bf7db026f799b291c7d7583ca75d7155ae42289cf",
+    "src/audio_tagging.rs": "139301b3753b080476c1ce17f42ef83103a90957db99f71eeffc71c76f701d28",
+    "src/kws.rs": "51681240a4c7158467d77a1a792c143a79fa5fc6d3754d40d15ac41948790462",
+    "src/lib.rs": "52d3f71aab747af4649dacd7d6f2be7f1e0b20b0b2684547d5bd08e5694d1b43",
+    "src/offline_asr.rs": "d408f95bdf53f1e46f07ef5d9de700b736736c0b6ae956df99ca316bd991f7c8",
+    "src/offline_punctuation.rs": "c380194c1fda8a1ab3aef59a6065b4b8735b6f62ebd8f47fa93897f7e339df85",
+    "src/offline_speaker_diarization.rs": "b2584b43ebe5d1ad5d2e7ea8275bed35f5c4ae2a3ede769062ef6c4e32df3656",
+    "src/online_asr.rs": "19f15ac580c4b1c2024b9b70ac9d348a4dd86e95e0118585b54b3c940e19825c",
+    "src/online_punctuation.rs": "caf9ca6e116a747d983fc109eb6664dcb52bf7611021b0f9ab7981f57c12078f",
+    "src/resampler.rs": "c4017b0e121577c166665cb7295cedfc66179a6c30c45a20e529ef148ea75358",
+    "src/speaker_embedding.rs": "6f89e62a709c33024e2ab209aee7c123e43f3b04b231b810958f2ee8a18e58cf",
+    "src/speech_denoiser.rs": "1922c1536c5902590320e0380df526290f93d423a14838cdef6e7a478148aa9b",
+    "src/spoken_language_identification.rs": "20ec96af0fbcccfb3e8a381643d1d90e3e6434936f6040897e130f1abbec95dd",
+    "src/tts.rs": "d1a949a60edc3f670ece52246b5083869f81fefcc9ea9b9ea7c1a4280df094f7",
+    "src/vad.rs": "d1e93356889a7dcd524172ccff22acdf7b87c8e0f1a4f77f1e35fa5e5768a13d",
+    "src/wave.rs": "3610968cfb6511db142449f391850e96d02253f607eb940a90d285cf60b5440d"
+  },
+  "changes": [
+    "Cargo.toml: explicit local build metadata and ZIP 9.1.3 build dependency",
+    "build.rs: use unchanged upstream native version for names and URLs",
+    "README.md: explicitly document local fork and validation boundaries",
+    "build.rs: return typed build errors from main instead of panicking; invalid inputs still fail Cargo"
+  ],
+  "omissions": [
+    "Cargo.lock: library uses root application lock",
+    "Cargo.toml.orig: unpatched duplicate manifest",
+    ".cargo_vcs_info.json: archive identity retained here"
+  ]
+}

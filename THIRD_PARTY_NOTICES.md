@@ -13,6 +13,13 @@ and does not relicense any component.
 - Use: SenseVoice offline ASR runtime and Rust bindings.
 - Component: `sherpa-onnx` and `sherpa-onnx-sys` v1.13.8.
 
+### Local sherpa-onnx-sys build-dependency backport
+
+- Source and original Apache-2.0 text: `third-party/sherpa-onnx-sys/`.
+- Identity: `1.13.8+tinystt.zip9.1`, reused from the reviewed TinyTTS backport of the official 1.13.8 crate.
+- Change: ZIP build dependency pinned to 9.1.3. Native archive names, URLs, FFI, and the Windows 1.13.8 ABI are unchanged.
+- Provenance: `third-party/sherpa-onnx-sys/BACKPORT.json`.
+
 ### ONNX Runtime
 
 - Project: <https://github.com/microsoft/onnxruntime>
