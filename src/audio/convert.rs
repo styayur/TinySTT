@@ -184,13 +184,13 @@ mod tests {
     }
 
     #[test]
-    fn integral_boundary_and_chunked_input_do_not_read_past_buffer() {
+    fn integral_boundary_and_chunked_input_do_not_read_past_buffer() -> Result<()> {
         for rate in [24_000, 32_000, 44_100, 48_000] {
             let input = vec![0.25_f32; rate as usize];
-            let output = resample_offline(&input, rate, 16_000).unwrap();
+            let output = resample_offline(&input, rate, 16_000)?;
             assert_eq!(output.len(), 16_000);
             assert!(output.iter().all(|s| (*s - 0.25).abs() < 1e-6));
-            let mut stream = StreamingResampler::new(rate, 16_000).unwrap();
+            let mut stream = StreamingResampler::new(rate, 16_000)?;
             let collected: Vec<f32> = input
                 .chunks(37)
                 .flat_map(|chunk| stream.process(chunk))
@@ -198,6 +198,7 @@ mod tests {
             assert!(collected.len() >= 15_998);
             assert!(collected.iter().all(|s| (*s - 0.25).abs() < 1e-6));
         }
+        Ok(())
     }
 
     #[test]
