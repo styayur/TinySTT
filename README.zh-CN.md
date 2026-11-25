@@ -4,6 +4,8 @@
 
 [English](README.md) · [v0.1.0 下载](https://github.com/styayur/TinySTT/releases/tag/v0.1.0) · [详细使用参考](docs/USAGE.md)
 
+**后续维护已迁至 Siny。** Windows 离线听写和朗读请使用 [Siny 0.1.0 Alpha 2](https://github.com/styayur/siny/releases/tag/v0.1.0-alpha.2)。在 Siny 的 **Settings & models** 中选择 **Import TinySTT config**，核对预览后再保存。TinySTT 已停止维护，原始源码和 v0.1.0 下载仍可访问。
+
 **早期预览版。** 按住 `Ctrl+Alt+D` 说话，松开后识别并复制文字。本地 CPU 推理不会上传音频或识别结果。未签名便携包和源码构建都需要另行下载模型。
 
 ## 真实识别输出
