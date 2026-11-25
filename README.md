@@ -4,6 +4,8 @@ Offline push-to-talk speech recognition for Windows using SenseVoice INT8 and sh
 
 [简体中文](README.zh-CN.md) · [v0.1.0 download](https://github.com/styayur/TinySTT/releases/tag/v0.1.0) · [Usage reference](docs/USAGE.md)
 
+**Maintenance moved to Siny.** Use [Siny 0.1.0 Alpha 2](https://github.com/styayur/siny/releases/tag/v0.1.0-alpha.2) for offline dictation and reading on Windows. In Siny, open **Settings & models**, choose **Import TinySTT config**, and review the settings before saving. TinySTT is no longer maintained. Its original source and v0.1.0 download remain available for reference.
+
 **Early preview.** Hold `Ctrl+Alt+D`, speak, release, then read or copy the transcript. The app runs local CPU inference without uploading audio or transcripts. The unsigned portable download and source builds both require a separately downloaded model.
 
 ## Actual recognition output
